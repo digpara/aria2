@@ -17,7 +17,6 @@ config.h.in
 config.log
 config.status
 config.sub
-install-sh
 .deps/
 stamp-h1
 INSTALL
