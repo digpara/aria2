@@ -8,7 +8,6 @@
 depcomp
 *.m4
 Makefile
-Makefile.in
 missing
 autom4te.cache/
 config.h
