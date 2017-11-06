@@ -5,10 +5,7 @@
 *.ce
 *.cce
 *.he
-depcomp
-*.m4
 Makefile
-missing
 autom4te.cache/
 config.h
 config.log
@@ -19,7 +16,6 @@ INSTALL
 *.gmo
 ABOUT-NLS
 README.html
-config.rpath
 aria2c.1
 aria2c.1.html
 intl/
@@ -34,7 +30,6 @@ libaria2ex
 libaria2wx
 .dirstamp
 .libs
-compile
 main.log
 main.trs
 test-suite.log
