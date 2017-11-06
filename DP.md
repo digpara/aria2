@@ -1,5 +1,6 @@
 ## pre dep
 xcode-select --install 
+brew install autoconf automake
 autoreconf -i # if no configure
 
 ## build
