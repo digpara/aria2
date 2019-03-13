@@ -235,9 +235,9 @@ bool FtpConnection::sendPort(const std::shared_ptr<SocketCore>& serverSocket)
 bool FtpConnection::sendRest(const std::shared_ptr<Segment>& segment)
 {
   if (socketBuffer_.sendBufferIsEmpty()) {
-    std::string request = fmt("REST %" PRId64 "\r\n",
-                              segment ? segment->getPositionToWrite()
-                                      : static_cast<int64_t>(0LL));
+    std::string request =
+        fmt("REST %" PRId64 "\r\n", segment ? segment->getPositionToWrite()
+                                            : static_cast<int64_t>(0LL));
     A2_LOG_INFO(fmt(MSG_SENDING_REQUEST, cuid_, request.c_str()));
     socketBuffer_.pushStr(std::move(request));
   }
@@ -369,16 +369,16 @@ int FtpConnection::receiveResponse()
 }
 
 #ifdef __MINGW32__
-#define LONGLONG_PRINTF "%I64d"
-#define ULONGLONG_PRINTF "%I64u"
-#define LONGLONG_SCANF "%I64d"
-#define ULONGLONG_SCANF "%I64u"
+#  define LONGLONG_PRINTF "%I64d"
+#  define ULONGLONG_PRINTF "%I64u"
+#  define LONGLONG_SCANF "%I64d"
+#  define ULONGLONG_SCANF "%I64u"
 #else
-#define LONGLONG_PRINTF "%" PRId64 ""
-#define ULONGLONG_PRINTF "%llu"
-#define LONGLONG_SCANF "%Ld"
+#  define LONGLONG_PRINTF "%" PRId64 ""
+#  define ULONGLONG_PRINTF "%llu"
+#  define LONGLONG_SCANF "%Ld"
 // Mac OSX uses "%llu" for 64bits integer.
-#define ULONGLONG_SCANF "%Lu"
+#  define ULONGLONG_SCANF "%Lu"
 #endif // __MINGW32__
 
 int FtpConnection::receiveSizeResponse(int64_t& size)

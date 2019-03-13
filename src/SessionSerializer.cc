@@ -56,7 +56,7 @@
 #include "SHA1IOFile.h"
 
 #if HAVE_ZLIB
-#include "GZipFile.h"
+#  include "GZipFile.h"
 #endif
 
 namespace aria2 {
@@ -223,14 +223,12 @@ bool writeDownloadResult(IOFile& fp, std::set<a2_gid_t>& metainfoCache,
     // also exists in remaining URIs.
     {
       Unique<std::string> unique;
-      if (hasRemaining &&
-          !writeUri(fp, file->getRemainingUris().begin(),
-                    file->getRemainingUris().end(), unique)) {
+      if (hasRemaining && !writeUri(fp, file->getRemainingUris().begin(),
+                                    file->getRemainingUris().end(), unique)) {
         return false;
       }
-      if (hasSpent &&
-          !writeUri(fp, file->getSpentUris().begin(),
-                    file->getSpentUris().end(), unique)) {
+      if (hasSpent && !writeUri(fp, file->getSpentUris().begin(),
+                                file->getSpentUris().end(), unique)) {
         return false;
       }
     }

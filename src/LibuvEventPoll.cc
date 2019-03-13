@@ -35,10 +35,10 @@
 /* copyright --> */
 
 #ifdef __MINGW32__
-#ifdef _WIN32_WINNT
-#undef _WIN32_WINNT
-#endif // _WIN32_WINNT
-#define _WIN32_WINNT 0x0600
+#  ifdef _WIN32_WINNT
+#    undef _WIN32_WINNT
+#  endif // _WIN32_WINNT
+#  define _WIN32_WINNT 0x0600
 #endif // __MINGW32__
 
 #include "LibuvEventPoll.h"
@@ -66,7 +66,7 @@ template <typename T> static void close_callback(uv_handle_t* handle)
 }
 
 static void timer_callback(uv_timer_t* handle) { uv_stop(handle->loop); }
-}
+} // namespace
 
 namespace aria2 {
 

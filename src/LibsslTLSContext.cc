@@ -125,15 +125,14 @@ OpenSSLTLSContext::OpenSSLTLSContext(TLSSessionSide side, TLSVersion minVer)
   };
 
   // Disable SSLv2 and enable all workarounds for buggy servers
-  SSL_CTX_set_options(sslCtx_,
-                      SSL_OP_ALL | SSL_OP_NO_SSLv2 | ver_opts
+  SSL_CTX_set_options(sslCtx_, SSL_OP_ALL | SSL_OP_NO_SSLv2 | ver_opts
 #ifdef SSL_OP_SINGLE_ECDH_USE
-                          | SSL_OP_SINGLE_ECDH_USE
+                                   | SSL_OP_SINGLE_ECDH_USE
 #endif // SSL_OP_SINGLE_ECDH_USE
 #ifdef SSL_OP_NO_COMPRESSION
-                          | SSL_OP_NO_COMPRESSION
+                                   | SSL_OP_NO_COMPRESSION
 #endif // SSL_OP_NO_COMPRESSION
-                      );
+  );
   SSL_CTX_set_mode(sslCtx_, SSL_MODE_AUTO_RETRY);
   SSL_CTX_set_mode(sslCtx_, SSL_MODE_ENABLE_PARTIAL_WRITE);
 #ifdef SSL_MODE_RELEASE_BUFFERS
@@ -147,7 +146,7 @@ OpenSSLTLSContext::OpenSSLTLSContext(TLSSessionSide side, TLSVersion minVer)
   }
 
 #if OPENSSL_VERSION_NUMBER >= 0x0090800fL
-#ifndef OPENSSL_NO_ECDH
+#  ifndef OPENSSL_NO_ECDH
   auto ecdh = EC_KEY_new_by_curve_name(NID_X9_62_prime256v1);
   if (ecdh == nullptr) {
     A2_LOG_WARN(fmt("Failed to enable ECDHE cipher suites. Cause: %s",
@@ -157,8 +156,8 @@ OpenSSLTLSContext::OpenSSLTLSContext(TLSSessionSide side, TLSVersion minVer)
     SSL_CTX_set_tmp_ecdh(sslCtx_, ecdh);
     EC_KEY_free(ecdh);
   }
-#endif // OPENSSL_NO_ECDH
-#endif // OPENSSL_VERSION_NUMBER >= 0x0090800fL
+#  endif // OPENSSL_NO_ECDH
+#endif   // OPENSSL_VERSION_NUMBER >= 0x0090800fL
 }
 
 OpenSSLTLSContext::~OpenSSLTLSContext() { SSL_CTX_free(sslCtx_); }
